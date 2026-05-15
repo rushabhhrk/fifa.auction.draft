@@ -229,6 +229,34 @@ tr:hover td{background:rgba(255,255,255,.03)}
 .btn-clear{margin-top:10px;padding:9px 16px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);border-radius:8px;color:#FF8080;font-size:12px;font-weight:600;cursor:pointer;width:100%;transition:background .18s;min-height:42px}
 .btn-clear:hover{background:rgba(239,68,68,.22)}
 
+/* ── Sub-page Back Button (mobile only) ── */
+.back-btn{
+  display:none;align-items:center;gap:8px;
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:9px 14px;margin-bottom:16px;
+  color:var(--silver);font-size:13px;font-weight:600;cursor:pointer;
+  width:fit-content;transition:background .15s,color .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.back-btn::before{content:'←';font-size:15px;line-height:1}
+.back-btn:hover,.back-btn:active{background:rgba(200,161,50,.12);color:var(--gold2);border-color:rgba(200,161,50,.35)}
+@media(max-width:640px){.back-btn{display:flex}}
+
+/* ── Auction Hub Cards ── */
+.hub-card{
+  background:var(--card2);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:22px 14px;text-align:center;cursor:pointer;width:100%;
+  transition:transform .18s,box-shadow .18s,border-color .18s;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.hub-card:hover,.hub-card:active{
+  transform:translateY(-3px);border-color:rgba(200,161,50,.45);
+  box-shadow:0 8px 24px rgba(200,161,50,.14);
+}
+.hub-icon{font-size:32px;line-height:1;margin-bottom:4px}
+.hub-label{font-size:14px;font-weight:800;color:var(--white)}
+.hub-sub{font-size:11px;color:var(--silver);opacity:.75}
+
 /* ── Misc ── */
 .section-title{font-size:clamp(18px,5vw,22px);font-weight:800;margin-bottom:5px;background:linear-gradient(135deg,var(--gold2),var(--white));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .section-sub{font-size:13px;color:var(--silver);margin-bottom:18px;line-height:1.5}
@@ -288,17 +316,120 @@ tr:hover td{background:rgba(255,255,255,.03)}
 </header>
 
 <div class="tabs">
-  <button class="tab-btn active" data-page="home" onclick="showPage('home',this)">🏠 Home</button>
+  <button class="tab-btn active" data-page="tournament" onclick="showPage('tournament',this)">🏆 Tournament</button>
+  <button class="tab-btn" data-page="home" onclick="showPage('home',this)">🏠 Auction</button>
   <button class="tab-btn" data-page="lots" onclick="showPage('lots',this)">🎰 Lots</button>
   <button class="tab-btn" data-page="hammer" onclick="showPage('hammer',this)">🔨 Hammer</button>
   <button class="tab-btn" data-page="partner" onclick="showPage('partner',this)">🤝 Partner</button>
   <button class="tab-btn" data-page="tracker" onclick="showPage('tracker',this)">💰 Purse</button>
   <button class="tab-btn" data-page="strategy" onclick="showPage('strategy',this)">🧠 Strategy</button>
-  <button class="tab-btn" data-page="trial" onclick="showPage('trial',this)">⚽ Trial Squad</button>
+  <button class="tab-btn" data-page="trial" onclick="showPage('trial',this)">⚽ Squad</button>
+</div>
+
+<!-- ═══ TOURNAMENT ═══ -->
+<div id="tournament" class="page active">
+  <div class="section-title">🏆 Tournament Guide</div>
+  <div class="section-sub">FC 26 · 2v2 Season 2026 · Official Rulebook &nbsp;·&nbsp; <em style="color:var(--gold2);font-style:normal">Concept by Rushabh Shah</em></div>
+
+  <div class="stats-row">
+    <div class="stat-card"><span class="stat-val">6</span><div class="stat-label">Teams</div></div>
+    <div class="stat-card"><span class="stat-val">₹500</span><div class="stat-label">Entry / Person</div></div>
+    <div class="stat-card"><span class="stat-val">2v2</span><div class="stat-label">Format</div></div>
+    <div class="stat-card"><span class="stat-val">Weekly</span><div class="stat-label">Match Day</div></div>
+    <div class="stat-card"><span class="stat-val">4</span><div class="stat-label">Trophies</div></div>
+    <div class="stat-card"><span class="stat-val">Wk 3</span><div class="stat-label">Transfer Wdw</div></div>
+  </div>
+
+  <!-- Entry & Prize -->
+  <div class="card">
+    <div class="card-title">💸 Entry Fee &amp; Prize Pool</div>
+    <div class="rule-item">
+      <div class="rule-num">₹</div>
+      <div class="rule-text"><strong>₹500 per person</strong> — captain and partner both pay. That's ₹1,000 per team and ₹6,000 total across all 12 participants.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">🏆</div>
+      <div class="rule-text">A portion covers <strong>trophies and miscellaneous costs</strong> (estimated ₹1,000–₹1,500). The remaining prize pool goes to the top 3 finishing teams.</div>
+    </div>
+    <div class="token-box" style="margin-top:12px">
+      <div class="tk-title">💰 Prize Distribution</div>
+      <p><strong style="color:var(--gold2)">🥇 Winner — 70%</strong> &nbsp;·&nbsp; <strong style="color:#C0C0C0">🥈 Runner-Up — 30%</strong><br><span style="opacity:.75;font-size:12px;margin-top:4px;display:block">Final pool confirmed after deducting trophy + misc costs. Split can be changed to winner-takes-all by group vote before the tournament starts.</span></p>
+    </div>
+  </div>
+
+  <!-- Match Format -->
+  <div class="card">
+    <div class="card-title">🗓️ Match Format &amp; Weekly Schedule</div>
+    <div class="rule-item"><div class="rule-num">1</div><div class="rule-text"><strong>League Phase — Double Round-Robin:</strong> Each team plays every other team <strong>twice</strong> (home and away). 10 matchdays total, 2 matches per team per matchday.</div></div>
+    <div class="rule-item"><div class="rule-num">2</div><div class="rule-text"><strong>Knockout Phase:</strong> Top 4 teams advance. <strong>Two-legged Semi-finals</strong> (aggregate score decides who goes through) → <strong>Grand Final</strong> (single match, winner takes all).</div></div>
+    <div class="rule-item"><div class="rule-num">3</div><div class="rule-text"><strong>Weekly Schedule:</strong> One fixed day per week agreed by the group (e.g., Friday). Both matches of the day happen in the same session.</div></div>
+    <div class="rule-item"><div class="rule-num">4</div><div class="rule-text"><strong>Match Duration:</strong> 5-minute halves (10 min total). Can be adjusted to 7-min halves by group vote before the season.</div></div>
+    <div class="rule-item"><div class="rule-num">5</div><div class="rule-text"><strong>Points:</strong> Win = 3 pts · Draw = 1 pt · Loss = 0 pts.<br>Tiebreaker order: Goal Difference → Goals Scored → Head-to-Head. No coin flips — if still level, the higher-rated GK's team gets precedence.</div></div>
+  </div>
+
+  <!-- Reschedule & Absence -->
+  <div class="card">
+    <div class="card-title">📅 Reschedule &amp; Absence Rules</div>
+    <div class="rule-item"><div class="rule-num">1</div><div class="rule-text"><strong>One reschedule per team per season.</strong> Either captain may invoke it. The new day is proposed and confirmed by <strong>group vote</strong>.</div></div>
+    <div class="rule-item"><div class="rule-num">2</div><div class="rule-text"><strong>Post-reschedule absence:</strong> If a team still doesn't show after their reschedule is used, they receive a <strong>₹200 fine</strong> (deducted from winnings / paid upfront) and the match is recorded as a <strong>0–3 forfeit</strong>.</div></div>
+  </div>
+
+  <!-- Trophies -->
+  <div class="card">
+    <div class="card-title">🏅 Trophies &amp; Awards</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:12px;margin-top:6px">
+      <div style="background:linear-gradient(135deg,rgba(200,161,50,.15),rgba(200,161,50,.04));border:1px solid rgba(200,161,50,.4);border-radius:var(--r-md);padding:16px;text-align:center">
+        <div style="font-size:30px;margin-bottom:8px">🏆</div>
+        <div style="font-weight:800;color:var(--gold2);font-size:13px;margin-bottom:5px">Champions</div>
+        <div style="font-size:11px;color:var(--silver);line-height:1.55">Winners of the Grand Final</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(192,192,192,.12),rgba(192,192,192,.03));border:1px solid rgba(192,192,192,.3);border-radius:var(--r-md);padding:16px;text-align:center">
+        <div style="font-size:30px;margin-bottom:8px">🥈</div>
+        <div style="font-weight:800;color:#C0C0C0;font-size:13px;margin-bottom:5px">Runner-Up</div>
+        <div style="font-size:11px;color:var(--silver);line-height:1.55">Finalists who fall just short</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.03));border:1px solid rgba(239,68,68,.3);border-radius:var(--r-md);padding:16px;text-align:center">
+        <div style="font-size:30px;margin-bottom:8px">⚽</div>
+        <div style="font-weight:800;color:#FF8080;font-size:13px;margin-bottom:5px">Golden Boot</div>
+        <div style="font-size:11px;color:var(--silver);line-height:1.55">Most goals across all matches (tracked per player, not team)</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(245,158,11,.03));border:1px solid rgba(245,158,11,.3);border-radius:var(--r-md);padding:16px;text-align:center">
+        <div style="font-size:30px;margin-bottom:8px">🧤</div>
+        <div style="font-weight:800;color:var(--gk);font-size:13px;margin-bottom:5px">Golden Glove</div>
+        <div style="font-size:11px;color:var(--silver);line-height:1.55">Fewest goals conceded in league phase (min. 4 matches)</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(59,130,246,.03));border:1px solid rgba(59,130,246,.3);border-radius:var(--r-md);padding:16px;text-align:center">
+        <div style="font-size:30px;margin-bottom:8px">💎</div>
+        <div style="font-weight:800;color:#7ABAFF;font-size:13px;margin-bottom:5px">Best Value Pick</div>
+        <div style="font-size:11px;color:var(--silver);line-height:1.55">Voted post-tournament. The auction steal that punched above their price.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transfer Window -->
+  <div class="card">
+    <div class="card-title">🔄 Transfer Window — Week 3</div>
+    <div class="phase-banner" style="margin-bottom:16px">
+      <div class="phase-icon">📅</div>
+      <div class="phase-info">
+        <h3>Opens after Week 3 matchday · Closes before Week 4</h3>
+        <p>Your one chance to reshape the squad mid-season. All transfers must be announced in the group chat and go unchallenged for <strong style="color:var(--gold2)">1 hour</strong> before becoming official.</p>
+      </div>
+    </div>
+    <div class="rule-item"><div class="rule-num">🤝</div><div class="rule-text"><strong>Partner Trade:</strong> Two captains may swap partners if <em>both</em> agree. Each captain can exercise this option <strong>once per season only</strong>. No forced trades.</div></div>
+    <div class="rule-item"><div class="rule-num">🔀</div><div class="rule-text"><strong>Player Transfers:</strong> Up to <strong>3 players per team</strong> can be exchanged. Both captains involved must agree on the swap. No cash changes hands — straight player-for-player.</div></div>
+    <div class="rule-item"><div class="rule-num">🛒</div><div class="rule-text"><strong>Unsold Player Pickups:</strong> Players not bought at auction are available from the pool. Price = that player's hammer base price. Max <strong>2 unsold pickups per team</strong>, deducted from remaining purse.</div></div>
+    <div class="rule-item"><div class="rule-num">🔒</div><div class="rule-text"><strong>Window closed = squad locked.</strong> No transfers once knockouts begin. Whatever you built is what you fight with.</div></div>
+  </div>
+
+  <!-- Credit -->
+  <div class="hl-box" style="text-align:center;padding:18px 20px">
+    <p><strong style="color:var(--gold2);font-size:15px">Concept &amp; Design: Rushabh Shah</strong><br><span style="color:var(--silver);font-size:12px;opacity:.75;margin-top:4px;display:block">FC 26 · 2v2 Auction Tournament · Season 2026</span></p>
+  </div>
 </div>
 
 <!-- ═══ HOME ═══ -->
-<div id="home" class="page active">
+<div id="home" class="page">
   <div class="stats-row">
     <div class="stat-card"><span class="stat-val">6</span><div class="stat-label">Captains</div></div>
     <div class="stat-card"><span class="stat-val">8</span><div class="stat-label">Lots</div></div>
@@ -327,32 +458,61 @@ tr:hover td{background:rgba(255,255,255,.03)}
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px">
       <div style="background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.22);border-radius:10px;padding:14px">
         <div style="color:var(--gk);font-weight:700;font-size:13px;margin-bottom:4px">🧤 GK Lot</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">1 lot · 6 top goalkeepers<br>Base bid: <strong style="color:var(--gold2)">₹8 Lakh</strong></div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">1 lot · 6 top goalkeepers<br>Base bid: <strong style="color:var(--gold2)">₹10 Lakh</strong></div>
       </div>
       <div style="background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.22);border-radius:10px;padding:14px">
         <div style="color:var(--att);font-weight:700;font-size:13px;margin-bottom:4px">⚡ Attacker Lots A &amp; B</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 attackers total<br>Base: <strong style="color:var(--gold2)">₹16L / ₹12L</strong></div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 attackers total<br>Base: <strong style="color:var(--gold2)">₹18L / ₹14L</strong></div>
       </div>
       <div style="background:rgba(59,130,246,.09);border:1px solid rgba(59,130,246,.22);border-radius:10px;padding:14px">
         <div style="color:var(--mid);font-weight:700;font-size:13px;margin-bottom:4px">⚙️ Midfielder Lots A &amp; B</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 midfielders total<br>Base: <strong style="color:var(--gold2)">₹15L / ₹10L</strong></div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 midfielders total<br>Base: <strong style="color:var(--gold2)">₹17L / ₹12L</strong></div>
       </div>
       <div style="background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.22);border-radius:10px;padding:14px">
         <div style="color:var(--def);font-weight:700;font-size:13px;margin-bottom:4px">🛡 Defender Lots A &amp; B</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 defenders total<br>Base: <strong style="color:var(--gold2)">₹13L / ₹9L</strong></div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 defenders total<br>Base: <strong style="color:var(--gold2)">₹14L / ₹10L</strong></div>
       </div>
       <div style="background:rgba(139,92,246,.09);border:1px solid rgba(139,92,246,.22);border-radius:10px;padding:14px">
         <div style="color:var(--mix);font-weight:700;font-size:13px;margin-bottom:4px">🌟 Mix Lot</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">1 lot · 6 versatile players<br>Base: <strong style="color:var(--gold2)">₹10 Lakh</strong></div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">1 lot · 6 versatile players<br>Base: <strong style="color:var(--gold2)">₹9 Lakh</strong></div>
       </div>
     </div>
   </div>
 
-  <div class="hl-box"><p><strong>Simultaneous Sealed Bids:</strong> All captains write their bid on paper and reveal at the same time. Rank 1 (highest) picks first, Rank 6 (lowest) picks last and pays average. Ties broken by coin flip. Minimum bid = base price. Increment: ₹50,000 minimum.</p></div>
+  <div class="hl-box"><p><strong>Simultaneous Sealed Bids:</strong> All captains write their bid on paper and reveal at the same time. Rank 1 (highest) picks first, Rank 6 (lowest) picks last and pays average. Ties broken by higher GK rating. Minimum bid = base price. Increment: ₹50,000 minimum.</p></div>
+</div>
+
+<!-- ═══ AUCTION HUB (mobile overview) ═══ -->
+<div id="auction-hub" class="page">
+  <div class="section-title">Auction Overview</div>
+  <div class="section-sub">Navigate to any section of the auction</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
+    <button class="hub-card" onclick="showPage('lots',document.querySelector('[data-page=lots]'))">
+      <div class="hub-icon">🎰</div>
+      <div class="hub-label">Lots</div>
+      <div class="hub-sub">8 lots · 48 players</div>
+    </button>
+    <button class="hub-card" onclick="showPage('hammer',document.querySelector('[data-page=hammer]'))">
+      <div class="hub-icon">🔨</div>
+      <div class="hub-label">Hammer Round</div>
+      <div class="hub-sub">72 players · live bidding</div>
+    </button>
+    <button class="hub-card" onclick="showPage('partner',document.querySelector('[data-page=partner]'))">
+      <div class="hub-icon">🤝</div>
+      <div class="hub-label">Partner Auction</div>
+      <div class="hub-sub">Phase 0 · min ₹5L</div>
+    </button>
+    <button class="hub-card" onclick="showPage('tracker',document.querySelector('[data-page=tracker]'))">
+      <div class="hub-icon">💰</div>
+      <div class="hub-label">Purse Tracker</div>
+      <div class="hub-sub">₹150L per captain</div>
+    </button>
+  </div>
 </div>
 
 <!-- ═══ LOTS ═══ -->
 <div id="lots" class="page">
+  <button class="back-btn" onclick="showPage('auction-hub',document.querySelector('[data-page=auction-hub]'))">Auction Overview</button>
   <div class="section-title">Player Lots</div>
   <div class="section-sub">8 lots · 48 players · All rated 87+ OVR · Organised by position</div>
   <div id="lots-container" class="lot-grid"></div>
@@ -360,6 +520,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
 
 <!-- ═══ HAMMER ═══ -->
 <div id="hammer" class="page">
+  <button class="back-btn" onclick="showPage('auction-hub',document.querySelector('[data-page=auction-hub]'))">Auction Overview</button>
   <div class="section-title">Hammer Round</div>
   <div class="section-sub">Open live auction · One player at a time · Position by position</div>
   <div class="phase-banner">
@@ -374,6 +535,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
 
 <!-- ═══ PARTNER ═══ -->
 <div id="partner" class="page">
+  <button class="back-btn" onclick="showPage('auction-hub',document.querySelector('[data-page=auction-hub]'))">Auction Overview</button>
   <div class="section-title">Partner Auction</div>
   <div class="section-sub">Held before the lot draft · Min bid ₹5 Lakh · Spend comes from your ₹1.5Cr purse</div>
   <div class="card">
@@ -393,6 +555,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
 
 <!-- ═══ PURSE TRACKER ═══ -->
 <div id="tracker" class="page">
+  <button class="back-btn" onclick="showPage('auction-hub',document.querySelector('[data-page=auction-hub]'))">Auction Overview</button>
   <div class="section-title">Purse Tracker</div>
   <div class="section-sub">Enter spend in Lakhs (₹L) · Purse = ₹150L per captain · Updates live</div>
   <div class="purse-grid" id="purse-grid"></div>
@@ -401,7 +564,43 @@ tr:hover td{background:rgba(255,255,255,.03)}
 <!-- ═══ STRATEGY ═══ -->
 <div id="strategy" class="page">
   <div class="section-title">Strategy Corner</div>
-  <div class="section-sub">Hints to give you an edge — not a recipe, just the right questions</div>
+  <div class="section-sub">From auction day to the Grand Final — the edge is in the details</div>
+
+  <!-- Tournament-level strategy -->
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-title">🗺️ Overall Tournament Strategy</div>
+    <div class="rule-item">
+      <div class="rule-num">📅</div>
+      <div class="rule-text"><strong>Week 1–2 — Establish early points.</strong> Your squad is freshest and opponents haven't studied your style yet. Don't play conservative football here — attack with full intensity and bank 6 points before the league gets competitive.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">🔄</div>
+      <div class="rule-text"><strong>Week 3 — Transfer Window is a weapon.</strong> Use the first two matchdays to identify your squad's weakest position. The transfer window opens after Week 3. If you know what you need going in, you can target the exact unsold player or propose the right trade before rivals do.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">📊</div>
+      <div class="rule-text"><strong>Track the Golden Boot race.</strong> If your striker is in contention, protect their minutes — substitute late, don't rest them needlessly. A Golden Boot winner adds prestige and cements your legacy in the tournament.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">🤝</div>
+      <div class="rule-text"><strong>Partner communication is the differentiator.</strong> In 2v2, one player is always out of position. The teams that win are the ones calling switches, defending together, and not blaming each other when it goes wrong. Chemistry off the pitch = performance on it.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">🏆</div>
+      <div class="rule-text"><strong>Knockout football is a different game.</strong> What wins you 3 points in the league might not win a one-off knockout tie. Have a plan for managing the match — when to hold a lead, when to go for the second goal, and how to handle penalties if it comes to that.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">🎭</div>
+      <div class="rule-text"><strong>Study your opponents' squads before you play them.</strong> Every captain's squad is visible after the auction. You know their best player, their weak flank, and whether they have pace up front. Prepare a tactical counter before the match — not during it.</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">💸</div>
+      <div class="rule-text"><strong>The reschedule is valuable — don't waste it early.</strong> Hold your reschedule for a matchday where you genuinely can't both be available. A forfeit in a close league table can be the difference between 3rd and 5th place.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div style="font-size:clamp(14px,4vw,16px);font-weight:800;color:var(--gold2);margin-bottom:14px;display:flex;align-items:center;gap:8px">🎯 Auction-Day Tips</div>
   <div class="strategy-grid">
     <div class="strat-card">
       <div class="strat-icon">🎯</div>
@@ -513,11 +712,9 @@ tr:hover td{background:rgba(255,255,255,.03)}
 </div><!-- /wrap -->
 
 <nav class="mob-nav" id="mob-nav">
-  <button class="mob-tab active" data-page="home" onclick="showPage('home',this)"><span class="mi">🏠</span><span class="ml">Home</span></button>
-  <button class="mob-tab" data-page="lots" onclick="showPage('lots',this)"><span class="mi">🎰</span><span class="ml">Lots</span></button>
-  <button class="mob-tab" data-page="hammer" onclick="showPage('hammer',this)"><span class="mi">🔨</span><span class="ml">Hammer</span></button>
-  <button class="mob-tab" data-page="partner" onclick="showPage('partner',this)"><span class="mi">🤝</span><span class="ml">Partner</span></button>
-  <button class="mob-tab" data-page="tracker" onclick="showPage('tracker',this)"><span class="mi">💰</span><span class="ml">Purse</span></button>
+  <button class="mob-tab active" data-page="tournament" onclick="showPage('tournament',this)"><span class="mi">🏆</span><span class="ml">Rules</span></button>
+  <button class="mob-tab" data-page="home" onclick="showPage('home',this)"><span class="mi">🏠</span><span class="ml">Auction</span></button>
+  <button class="mob-tab" data-page="auction-hub" onclick="showPage('auction-hub',this)"><span class="mi">🎰</span><span class="ml">Players</span></button>
   <button class="mob-tab" data-page="strategy" onclick="showPage('strategy',this)"><span class="mi">🧠</span><span class="ml">Strategy</span></button>
   <button class="mob-tab" data-page="trial" onclick="showPage('trial',this)"><span class="mi">⚽</span><span class="ml">Squad</span></button>
 </nav>
@@ -860,6 +1057,11 @@ function showPage(id,btn){
   document.getElementById(id).classList.add('active');
   // sync both desktop + mobile navs by data-page attribute
   document.querySelectorAll(`[data-page="${id}"]`).forEach(b=>b.classList.add('active'));
+  // when navigating to a sub-page from the hub, keep mob "Players" tab highlighted
+  const mobHubPages=['lots','hammer','partner','tracker'];
+  if(mobHubPages.includes(id)){
+    document.querySelectorAll('[data-page="auction-hub"]').forEach(b=>b.classList.add('active'));
+  }
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
