@@ -323,7 +323,6 @@ tr:hover td{background:rgba(255,255,255,.03)}
   <button class="tab-btn" data-page="partner" onclick="showPage('partner',this)">🤝 Partner</button>
   <button class="tab-btn" data-page="tracker" onclick="showPage('tracker',this)">💰 Purse</button>
   <button class="tab-btn" data-page="strategy" onclick="showPage('strategy',this)">🧠 Strategy</button>
-  <button class="tab-btn" data-page="trial" onclick="showPage('trial',this)">⚽ Squad</button>
 </div>
 
 <!-- ═══ TOURNAMENT ═══ -->
@@ -684,30 +683,6 @@ tr:hover td{background:rgba(255,255,255,.03)}
   </div>
 </div>
 
-<!-- ═══ TRIAL SQUAD ═══ -->
-<div id="trial" class="page">
-  <div class="section-title">Trial Squad Builder</div>
-  <div class="section-sub">Simulate your draft strategy · Select up to 18 players · Estimates use lot base prices</div>
-  <div class="builder-wrap">
-    <div><div id="pool-container"></div></div>
-    <div class="squad-panel">
-      <h3>⚽ My Trial Squad <span id="squad-count-badge" style="font-size:12px;font-weight:500;color:var(--silver)">(0/18)</span></h3>
-      <div id="squad-display">
-        <div style="font-size:13px;color:var(--silver);text-align:center;padding:20px 0;opacity:.6">← Select players to build your squad</div>
-      </div>
-      <div class="squad-budget">
-        <div class="budget-row">
-          <span style="font-size:12px;color:var(--silver)">Estimated spend</span>
-          <span style="font-size:12px;color:var(--silver)">/ ₹150L</span>
-        </div>
-        <div class="budget-spent" id="budget-spent">₹0L</div>
-        <div class="budget-bar-wrap"><div class="budget-bar-fill" id="budget-bar" style="width:0%"></div></div>
-        <div class="squad-count-txt" id="squad-remaining">₹150L remaining</div>
-      </div>
-      <button class="btn-clear" onclick="clearSquad()">✕ Clear Squad</button>
-    </div>
-  </div>
-</div>
 
 </div><!-- /wrap -->
 
@@ -716,7 +691,6 @@ tr:hover td{background:rgba(255,255,255,.03)}
   <button class="mob-tab" data-page="home" onclick="showPage('home',this)"><span class="mi">🏠</span><span class="ml">Auction</span></button>
   <button class="mob-tab" data-page="auction-hub" onclick="showPage('auction-hub',this)"><span class="mi">🎰</span><span class="ml">Players</span></button>
   <button class="mob-tab" data-page="strategy" onclick="showPage('strategy',this)"><span class="mi">🧠</span><span class="ml">Strategy</span></button>
-  <button class="mob-tab" data-page="trial" onclick="showPage('trial',this)"><span class="mi">⚽</span><span class="ml">Squad</span></button>
 </nav>
 
 <script>
@@ -724,162 +698,151 @@ tr:hover td{background:rgba(255,255,255,.03)}
 // ── FC 26 Official Ratings (released Sep 26 2025) ──
 // Sources: EA Sports / Goal.com / gamecurrency.net
 const LOTS=[
-  {id:'gk',type:'gk',name:'\u{1F9E4} Goalkeeper Lot',baseL:12,players:[
-    {n:'Gianluigi Donnarumma', c:'Man City',        p:'GK',r:89},
-    {n:'Alisson Becker',       c:'Liverpool',       p:'GK',r:89},
-    {n:'Thibaut Courtois',     c:'Real Madrid',     p:'GK',r:89},
-    {n:'Jan Oblak',            c:'Atletico Madrid', p:'GK',r:88},
-    {n:'Yann Sommer',          c:'Inter Milan',     p:'GK',r:87},
-    {n:'Mike Maignan',         c:'AC Milan',        p:'GK',r:87}
+  {id:'gk',type:'gk',name:'\u{1F9E4} Goalkeeper Lot',baseL:10,players:[
+    {n:'Thibaut Courtois',      c:'Real Madrid',     p:'GK',r:90},
+    {n:'Gianluigi Donnarumma',  c:'PSG',             p:'GK',r:89},
+    {n:'Alisson Becker',        c:'Liverpool',       p:'GK',r:88},
+    {n:'Jan Oblak',             c:'Atletico Madrid', p:'GK',r:88},
+    {n:'David Raya',            c:'Arsenal',         p:'GK',r:87},
+    {n:'Mike Maignan',          c:'AC Milan',        p:'GK',r:87}
   ]},
-  {id:'attA',type:'att',name:'⚡ Attacker Lot A',baseL:12,players:[
-    {n:'Mohamed Salah',        c:'Liverpool',       p:'RW', r:91},
-    {n:'Ousmane Dembélé',      c:'PSG',             p:'ST', r:90},
-    {n:'Raphinha',             c:'Barcelona',       p:'LW', r:89},
-    {n:'Harry Kane',           c:'Bayern Munich',   p:'ST', r:89},
-    {n:'Robert Lewandowski',   c:'Barcelona',       p:'ST', r:88},
-    {n:'Alexander Isak',       c:'Liverpool',       p:'ST', r:88}
+  {id:'attA',type:'att',name:'⚡ Attacker Lot A',baseL:10,players:[
+    {n:'Kylian Mbappé',         c:'Real Madrid',     p:'ST', r:91},
+    {n:'Harry Kane',            c:'Bayern Munich',   p:'ST', r:90},
+    {n:'Vinicius Jr.',          c:'Real Madrid',     p:'LW', r:89},
+    {n:'Lamine Yamal',          c:'Barcelona',       p:'RW', r:89},
+    {n:'Lautaro Martínez',      c:'Inter Milan',     p:'ST', r:88},
+    {n:'Bukayo Saka',           c:'Arsenal',         p:'RW', r:87}
   ]},
-  {id:'attB',type:'att',name:'⚡ Attacker Lot B',baseL:12,players:[
-    {n:'Kylian Mbappé',        c:'Real Madrid',     p:'ST', r:91},
-    {n:'Erling Haaland',       c:'Man City',        p:'ST', r:90},
-    {n:'Lamine Yamal',         c:'Barcelona',       p:'RW', r:89},
-    {n:'Vinicius Jr.',         c:'Real Madrid',     p:'LW', r:89},
-    {n:'Lautaro Martínez',     c:'Inter Milan',     p:'ST', r:88},
-    {n:'Bukayo Saka',          c:'Arsenal',         p:'RW', r:88}
+  {id:'attB',type:'att',name:'⚡ Attacker Lot B',baseL:10,players:[
+    {n:'Erling Haaland',        c:'Man City',        p:'ST', r:91},
+    {n:'Ousmane Dembélé',       c:'PSG',             p:'ST', r:90},
+    {n:'Mohamed Salah',         c:'Liverpool',       p:'RW', r:89},
+    {n:'Raphinha',              c:'Barcelona',       p:'LW', r:89},
+    {n:'Michael Olise',         c:'Bayern Munich',   p:'RW', r:88},
+    {n:'Alexander Isak',        c:'Liverpool',       p:'ST', r:87}
   ]},
-  {id:'midA',type:'mid',name:'⚙️ Midfielder Lot A',baseL:12,players:[
-    {n:'Rodri',                c:'Man City',        p:'CDM',r:90},
-    {n:'Vitinha',              c:'PSG',             p:'CM', r:89},
-    {n:'Joshua Kimmich',       c:'Bayern Munich',   p:'CDM',r:89},
-    {n:'Florian Wirtz',        c:'Liverpool',       p:'CAM',r:89},
-    {n:'Kevin De Bruyne',      c:'Napoli',          p:'CM', r:87},
-    {n:'Moïsés Caicedo',       c:'Chelsea',         p:'CDM',r:87}
+  {id:'midA',type:'mid',name:'⚙️ Midfielder Lot A',baseL:10,players:[
+    {n:'Vitinha',               c:'PSG',             p:'CM', r:90},
+    {n:'Jude Bellingham',       c:'Real Madrid',     p:'CAM',r:89},
+    {n:'Joshua Kimmich',        c:'Bayern Munich',   p:'CDM',r:89},
+    {n:'Moisés Caicedo',        c:'Chelsea',         p:'CDM',r:88},
+    {n:'Bruno Fernandes',       c:'Man United',      p:'CAM',r:88},
+    {n:'Nicolò Barella',        c:'Inter Milan',     p:'CM', r:88}
   ]},
-  {id:'midB',type:'mid',name:'⚙️ Midfielder Lot B',baseL:12,players:[
-    {n:'Jude Bellingham',      c:'Real Madrid',     p:'CAM',r:90},
-    {n:'Pedri',                c:'Barcelona',       p:'CM', r:89},
-    {n:'Federico Valverde',    c:'Real Madrid',     p:'CM', r:89},
-    {n:'Jamal Musiala',        c:'Bayern Munich',   p:'CAM',r:88},
-    {n:'Frenkie de Jong',      c:'Barcelona',       p:'CM', r:87},
-    {n:'Declan Rice',          c:'Arsenal',         p:'CDM',r:87}
+  {id:'midB',type:'mid',name:'⚙️ Midfielder Lot B',baseL:10,players:[
+    {n:'Pedri',                 c:'Barcelona',       p:'CM', r:90},
+    {n:'Rodri',                 c:'Man City',        p:'CDM',r:89},
+    {n:'Federico Valverde',     c:'Real Madrid',     p:'CM', r:89},
+    {n:'Declan Rice',           c:'Arsenal',         p:'CDM',r:88},
+    {n:'Jamal Musiala',         c:'Bayern Munich',   p:'CAM',r:88},
+    {n:'Florian Wirtz',         c:'Liverpool',       p:'CAM',r:87}
   ]},
-  {id:'defA',type:'def',name:'\u{1F6E1} Defender Lot A',baseL:12,players:[
-    {n:'Virgil van Dijk',      c:'Liverpool',       p:'CB', r:90},
-    {n:'Gabriel Magalhães',    c:'Arsenal',         p:'CB', r:88},
-    {n:'Marquinhos',           c:'PSG',             p:'CB', r:87},
-    {n:'William Saliba',       c:'Arsenal',         p:'CB', r:87},
-    {n:'Nuno Mendes',          c:'PSG',             p:'LB', r:86},
-    {n:'Trent Alexander-Arnold',c:'Real Madrid',    p:'RB', r:86}
+  {id:'defA',type:'def',name:'🛡 Defender Lot A',baseL:10,players:[
+    {n:'Gabriel Magalhães',     c:'Arsenal',         p:'CB', r:89},
+    {n:'Virgil van Dijk',       c:'Liverpool',       p:'CB', r:88},
+    {n:'Nuno Mendes',           c:'PSG',             p:'LB', r:88},
+    {n:'Rúben Dias',            c:'Man City',        p:'CB', r:87},
+    {n:'Marquinhos',            c:'PSG',             p:'CB', r:87},
+    {n:'Jules Koundé',          c:'Barcelona',       p:'RB', r:86}
   ]},
-  {id:'defB',type:'def',name:'\u{1F6E1} Defender Lot B',baseL:12,players:[
-    {n:'Achraf Hakimi',        c:'PSG',             p:'RB', r:89},
-    {n:'Alessandro Bastoni',   c:'Inter Milan',     p:'CB', r:87},
-    {n:'Jules Koundé',         c:'Barcelona',       p:'RB', r:87},
-    {n:'Jonathan Tah',         c:'Bayern Munich',   p:'CB', r:87},
-    {n:'Antonio Rüdiger',      c:'Real Madrid',     p:'CB', r:86},
-    {n:'Rúben Dias',           c:'Man City',        p:'CB', r:86}
+  {id:'defB',type:'def',name:'🛡 Defender Lot B',baseL:10,players:[
+    {n:'Achraf Hakimi',         c:'PSG',             p:'RB', r:89},
+    {n:'William Saliba',        c:'Arsenal',         p:'CB', r:88},
+    {n:'Willian Pacho',         c:'PSG',             p:'CB', r:87},
+    {n:'Alessandro Bastoni',    c:'Inter Milan',     p:'CB', r:87},
+    {n:'Jonathan Tah',          c:'Bayern Munich',   p:'CB', r:87},
+    {n:'Nico Schlotterbeck',    c:'Dortmund',        p:'CB', r:86}
   ]},
-  {id:'mix',type:'mix',name:'\u{1F31F} Mix Lot — Wildcards',baseL:12,players:[
-    {n:'Bruno Fernandes',      c:'Man United',      p:'CAM',r:87},
-    {n:'Martin Ødegaard',      c:'Arsenal',         p:'CM', r:87},
-    {n:'Khvicha Kvaratskhelia', c:'PSG',            p:'LW', r:87},
-    {n:'Michael Olise',        c:'Bayern Munich',   p:'RW', r:86},
-    {n:'Ibrahima Konaté',      c:'Liverpool',       p:'CB', r:86},
-    {n:'Willian Pacho',        c:'PSG',             p:'CB', r:86}
+  {id:'mix',type:'mix',name:'🌟 Mix Lot — Wildcards',baseL:10,players:[
+    {n:'Khvicha Kvaratskhelia',  c:'PSG',            p:'LW', r:87},
+    {n:'Frenkie de Jong',        c:'Barcelona',      p:'CM', r:87},
+    {n:'João Neves',             c:'PSG',            p:'CM', r:87},
+    {n:'Martin Ødegaard',        c:'Arsenal',        p:'CM', r:86},
+    {n:'Dayot Upamecano',        c:'Bayern Munich',  p:'CB', r:86},
+    {n:'Ibrahima Konaté',        c:'Liverpool',      p:'CB', r:85}
   ]}
 ];
 
-// ── Players NOT in lots → hammer pool ───────────────────────────────────────────────────────
-// Hammer: 87-rated overflow + 86 and below | Target 120 total players
+// ── Players NOT in lots → hammer pool ─────────────────────────────────────
+// Hammer: 87-rated overflow + 86 and below
 const HAMMER={
-  gk:{label:'\u{1F9E4} Goalkeepers',col:'var(--gk)',players:[
-    {n:'David Raya',              c:'Arsenal',           p:'GK',r:87,b:3},
-    {n:'Marc-André ter Stegen',   c:'Barcelona',         p:'GK',r:86,b:3},
-    {n:'Gregor Kobel',            c:'Dortmund',          p:'GK',r:86,b:3},
-    {n:'Ederson',                 c:'Fenerbahçe',        p:'GK',r:85,b:3},
-    {n:'Emiliano Martínez',       c:'Aston Villa',       p:'GK',r:85,b:3},
-    {n:'Unai Simón',              c:'Athletic Bilbao',   p:'GK',r:85,b:3},
-    {n:'Péter Gulácsi',           c:'Leipzig',           p:'GK',r:85,b:3},
-    {n:'David De Gea',            c:'Fiorentina',        p:'GK',r:85,b:3},
-    {n:'Giorgi Mamardashvili',    c:'Liverpool',         p:'GK',r:84,b:3},
-    {n:'Jordan Pickford',         c:'Everton',           p:'GK',r:84,b:3},
-    {n:'Wojciech Szczęsny',       c:'Barcelona',         p:'GK',r:84,b:3}
+  gk:{label:'🧤 Goalkeepers',col:'var(--gk)',players:[
+    {n:'Yann Sommer',            c:'Inter Milan',      p:'GK',r:86,b:3},
+    {n:'Joan Garcia',            c:'Espanyol',         p:'GK',r:86,b:3},
+    {n:'Gregor Kobel',           c:'Dortmund',         p:'GK',r:86,b:3},
+    {n:'Emiliano Martínez',      c:'Aston Villa',      p:'GK',r:85,b:3},
+    {n:'Marco Carnesecchi',      c:'Atalanta',         p:'GK',r:85,b:3}
   ]},
-  def:{label:'\u{1F6E1} Defenders',col:'var(--def)',players:[
-    {n:'Federico Dimarco',        c:'Inter Milan',       p:'LB',r:85,b:3},
-    {n:'Bremer',                  c:'Juventus',          p:'CB',r:85,b:3},
-    {n:'Dani Carvajal',           c:'Real Madrid',       p:'RB',r:85,b:3},
-    {n:'Nico Schlotterbeck',      c:'Dortmund',          p:'CB',r:85,b:3},
-    {n:'Dayot Upamecano',         c:'Bayern Munich',     p:'CB',r:85,b:3},
-    {n:'Joško Gvardiol',          c:'Man City',          p:'LB',r:84,b:3},
-    {n:'Theo Hernández',          c:'Al Hilal',          p:'LB',r:84,b:3},
-    {n:'Marc Cucurella',          c:'Chelsea',           p:'LB',r:84,b:3},
-    {n:'Alejandro Grimaldo',      c:'Leverkusen',        p:'LB',r:84,b:3},
-    {n:'Benjamin Pavard',         c:'Marseille',         p:'CB',r:84,b:3},
-    {n:'Micky van de Ven',        c:'Tottenham',         p:'CB',r:84,b:3},
-    {n:'Pau Cubarsi',             c:'Barcelona',         p:'CB',r:84,b:3},
-    {n:'Alphonso Davies',         c:'Bayern Munich',     p:'LB',r:84,b:3},
-    {n:'Alejandro Balde',         c:'Barcelona',         p:'LB',r:83,b:3},
-    {n:'Ronald Araújo',           c:'Barcelona',         p:'CB',r:83,b:3},
-    {n:'Benjamin White',          c:'Arsenal',           p:'RB',r:83,b:3},
-    {n:'Lisandro Martínez',       c:'Man United',        p:'CB',r:81,b:3},
-    {n:'Kieran Trippier',         c:'Newcastle',         p:'RB',r:80,b:3}
+  def:{label:'🛡 Defenders',col:'var(--def)',players:[
+    {n:'Federico Dimarco',       c:'Inter Milan',      p:'LB',r:86,b:3},
+    {n:'Trent Alexander-Arnold', c:'Real Madrid',      p:'RB',r:85,b:3},
+    {n:'Bremer',                 c:'Juventus',         p:'CB',r:85,b:3},
+    {n:'Marc Cucurella',         c:'Chelsea',          p:'LB',r:85,b:3},
+    {n:'Joško Gvardiol',         c:'Man City',         p:'LB',r:85,b:3},
+    {n:'Diego Llorente',         c:'Atletico Madrid',  p:'CB',r:85,b:3},
+    {n:'Alejandro Grimaldo',     c:'Leverkusen',       p:'LB',r:85,b:3},
+    {n:'Antonio Rüdiger',        c:'Real Madrid',      p:'CB',r:84,b:3},
+    {n:'Dani Carvajal',          c:'Real Madrid',      p:'RB',r:84,b:3},
+    {n:'Denzel Dumfries',        c:'Inter Milan',      p:'RB',r:84,b:3},
+    {n:'Reece James',            c:'Chelsea',          p:'RB',r:84,b:3},
+    {n:'Eder Militão',           c:'Real Madrid',      p:'CB',r:84,b:3},
+    {n:'Marc Guéhi',             c:'Crystal Palace',   p:'CB',r:84,b:3},
+    {n:'Jurrien Timber',         c:'Arsenal',          p:'RB',r:84,b:3},
+    {n:'João Cancelo',           c:'Barcelona',        p:'RB',r:84,b:3},
+    {n:'Íñigo Martínez',         c:'Athletic Bilbao',  p:'CB',r:84,b:3},
+    {n:'Alphonso Davies',        c:'Bayern Munich',    p:'LB',r:84,b:3},
+    {n:'Theo Hernández',         c:'Al Hilal',         p:'LB',r:84,b:3},
+    {n:'Pau Cubarsi',            c:'Barcelona',        p:'CB',r:83,b:3},
+    {n:'Jeremie Frimpong',       c:'Leverkusen',       p:'RB',r:83,b:3},
+    {n:'Alejandro Balde',        c:'Barcelona',        p:'LB',r:83,b:3},
+    {n:'Eric García',            c:'Girona',           p:'CB',r:83,b:3}
   ]},
   mid:{label:'⚙️ Midfielders',col:'var(--mid)',players:[
-    {n:'Nicolò Barella',          c:'Inter Milan',       p:'CM', r:87,b:3},
-    {n:'Alexis Mac Allister',     c:'Liverpool',         p:'CM', r:87,b:3},
-    {n:'Hakan Çalhanoglu',        c:'Inter Milan',       p:'CDM',r:86,b:3},
-    {n:'Sandro Tonali',           c:'Newcastle',         p:'CDM',r:86,b:3},
-    {n:'Tijjani Reijnders',       c:'Man City',          p:'CM', r:86,b:3},
-    {n:'Bruno Guimarães',         c:'Newcastle',         p:'CM', r:86,b:3},
-    {n:'Dani Olmo',               c:'Barcelona',         p:'CAM',r:85,b:3},
-    {n:'Ryan Gravenberch',        c:'Liverpool',         p:'CDM',r:85,b:3},
-    {n:"N'Golo Kanté",           c:'Al Ittihad',        p:'CDM',r:85,b:3},
-    {n:'Granit Xhaka',            c:'Sunderland',        p:'CDM',r:85,b:3},
-    {n:'João Neves',              c:'PSG',               p:'CM', r:85,b:3},
-    {n:'Scott McTominay',         c:'Napoli',            p:'CM', r:85,b:3},
-    {n:'Fabián Ruiz',             c:'PSG',               p:'CM', r:85,b:3},
-    {n:'Dominik Szoboszlai',      c:'Liverpool',         p:'CAM',r:85,b:3},
-    {n:'Bernardo Silva',          c:'Man City',          p:'CM', r:85,b:3},
-    {n:'João Palhinha',           c:'Man City',          p:'CDM',r:85,b:3},
-    {n:'Aurélien Tchouaméni',     c:'Real Madrid',       p:'CDM',r:84,b:3},
-    {n:'Enzo Fernández',           c:'Chelsea',           p:'CM', r:84,b:3},
-    {n:'James Maddison',          c:'Tottenham',         p:'CAM',r:84,b:3},
-    {n:'Martin Zubimendi',        c:'Arsenal',           p:'CDM',r:84,b:3},
-    {n:'Eduardo Camavinga',       c:'Real Madrid',       p:'CM', r:83,b:3},
-    {n:'Khéphren Thuram',         c:'Juventus',          p:'CM', r:81,b:3},
-    {n:'Conor Gallagher',         c:'Atletico Madrid',   p:'CM', r:81,b:3},
-    {n:'Cole Palmer',             c:'Chelsea',           p:'CAM',r:87,b:3}
+    {n:'Kevin De Bruyne',        c:'Napoli',           p:'CM', r:87,b:3},
+    {n:'Cole Palmer',            c:'Chelsea',          p:'CAM',r:86,b:3},
+    {n:'Alexis Mac Allister',    c:'Liverpool',        p:'CM', r:86,b:3},
+    {n:'Dominik Szoboszlai',     c:'Liverpool',        p:'CAM',r:86,b:3},
+    {n:'Scott McTominay',        c:'Napoli',           p:'CM', r:86,b:3},
+    {n:'Ryan Gravenberch',       c:'Liverpool',        p:'CDM',r:86,b:3},
+    {n:'Sandro Tonali',          c:'Newcastle',        p:'CDM',r:85,b:3},
+    {n:'Tijjani Reijnders',      c:'Man City',         p:'CM', r:85,b:3},
+    {n:'Martin Zubimendi',       c:'Arsenal',          p:'CDM',r:85,b:3},
+    {n:'Enzo Fernández',         c:'Chelsea',          p:'CM', r:85,b:3},
+    {n:'Paulo Dybala',           c:'Roma',             p:'CAM',r:85,b:3},
+    {n:'Granit Xhaka',           c:'Leverkusen',       p:'CDM',r:85,b:3},
+    {n:'Fabián Ruiz',            c:'PSG',              p:'CM', r:85,b:3},
+    {n:'Phil Foden',             c:'Man City',         p:'CAM',r:85,b:3},
+    {n:'Sergej Milinkovic-Savic',c:'Al Hilal',         p:'CM', r:85,b:3},
+    {n:'Youri Tielemans',        c:'Aston Villa',      p:'CM', r:85,b:3},
+    {n:'Dani Olmo',              c:'Barcelona',        p:'CAM',r:84,b:3},
+    {n:"N'Golo Kanté",           c:'Al Ittihad',       p:'CDM',r:84,b:3},
+    {n:'Eberechi Eze',           c:'Arsenal',          p:'CAM',r:84,b:3},
+    {n:'Luka Modrić',            c:'Real Madrid',      p:'CM', r:84,b:3},
+    {n:'Isco',                   c:'Real Betis',       p:'CAM',r:84,b:3}
   ]},
   att:{label:'⚡ Attackers',col:'var(--att)',players:[
-    {n:'Julián Álvarez',          c:'Atletico Madrid',   p:'ST', r:87,b:3},
-    {n:'Viktor Gyökeres',         c:'Arsenal',           p:'ST', r:87,b:3},
-    {n:'Serhou Guirassy',         c:'Dortmund',          p:'ST', r:87,b:3},
-    {n:'Victor Osimhen',          c:'Galatasaray',       p:'ST', r:87,b:3},
-    {n:'Paulo Dybala',            c:'Roma',              p:'CAM',r:86,b:3},
-    {n:'Lionel Messi',            c:'Inter Miami',       p:'RW', r:86,b:3},
-    {n:'Nico Williams',           c:'Athletic Bilbao',   p:'LW', r:86,b:3},
-    {n:'Phil Foden',              c:'Man City',          p:'RW', r:85,b:3},
-    {n:'Bryan Mbeumo',            c:'Man United',        p:'RW', r:85,b:3},
-    {n:'Désiré Doué',             c:'PSG',               p:'RW', r:85,b:3},
-    {n:'Rodrygo',                 c:'Real Madrid',       p:'RW', r:85,b:3},
-    {n:'Son Heung-min',           c:'LAFC',              p:'LW', r:85,b:3},
-    {n:'Marcus Thuram',           c:'Inter Milan',       p:'ST', r:85,b:3},
-    {n:'Luis Díaz',               c:'Bayern Munich',     p:'LW', r:85,b:3},
-    {n:'Antoine Griezmann',       c:'Atletico Madrid',   p:'ST', r:85,b:3},
-    {n:'Cristiano Ronaldo',       c:'Al Nassr',          p:'ST', r:85,b:3},
-    {n:'Karim Benzema',           c:'Al Ittihad',        p:'ST', r:85,b:3},
-    {n:'Cody Gakpo',              c:'Liverpool',         p:'LW', r:84,b:3},
-    {n:'Rafael Leão',             c:'AC Milan',          p:'LW', r:84,b:3},
-    {n:'Ollie Watkins',           c:'Aston Villa',       p:'ST', r:84,b:3},
-    {n:'Ademola Lookman',         c:'Atalanta',          p:'LW', r:84,b:3},
-    {n:'Gabriel Martinelli',      c:'Arsenal',           p:'LW', r:84,b:3},
-    {n:'Lois Openda',             c:'Juventus',          p:'ST', r:83,b:3},
-    {n:'Eberechi Eze',            c:'Arsenal',           p:'CAM',r:83,b:3},
-    {n:'Dušan Vlahović',          c:'Juventus',          p:'ST', r:82,b:3},
-    {n:'Noni Madueke',            c:'Arsenal',           p:'RW', r:80,b:3},
-    {n:'Marcus Rashford',         c:'Barcelona',         p:'LW', r:80,b:3}
+    {n:'Luis Díaz',              c:'Bayern Munich',    p:'LW', r:87,b:3},
+    {n:'Lionel Messi',           c:'Inter Miami',      p:'RW', r:86,b:3},
+    {n:'Julián Álvarez',         c:'Atletico Madrid',  p:'ST', r:86,b:3},
+    {n:'Viktor Gyökeres',        c:'Arsenal',          p:'ST', r:86,b:3},
+    {n:'Robert Lewandowski',     c:'Barcelona',        p:'ST', r:86,b:3},
+    {n:'Désiré Doué',            c:'PSG',              p:'RW', r:85,b:3},
+    {n:'Nico Williams',          c:'Athletic Bilbao',  p:'LW', r:85,b:3},
+    {n:'Hugo Ekitike',           c:'Frankfurt',        p:'ST', r:85,b:3},
+    {n:'Serhou Guirassy',        c:'Dortmund',         p:'ST', r:85,b:3},
+    {n:'Cristiano Ronaldo',      c:'Al Nassr',         p:'ST', r:85,b:3},
+    {n:'Christian Pulisic',      c:'AC Milan',         p:'RW', r:85,b:3},
+    {n:'Marcus Thuram',          c:'Inter Milan',      p:'ST', r:85,b:3},
+    {n:'Patrick Schick',         c:'Leverkusen',       p:'ST', r:85,b:3},
+    {n:'Son Heung-min',          c:'LAFC',             p:'LW', r:84,b:3},
+    {n:'Antoine Griezmann',      c:'Atletico Madrid',  p:'ST', r:84,b:3},
+    {n:'Rodrygo',                c:'Real Madrid',      p:'RW', r:84,b:3},
+    {n:'Rafael Leão',            c:'AC Milan',         p:'LW', r:84,b:3},
+    {n:'Ferran Torres',          c:'Barcelona',        p:'RW', r:84,b:3},
+    {n:'Ollie Watkins',          c:'Aston Villa',      p:'ST', r:84,b:3},
+    {n:'Ademola Lookman',        c:'Atalanta',         p:'LW', r:84,b:3},
+    {n:'Gabriel Martinelli',     c:'Arsenal',          p:'LW', r:84,b:3}
   ]}
 };
 
@@ -1072,3 +1035,4 @@ renderPool();
 </script>
 </body>
 </html>
+ 
