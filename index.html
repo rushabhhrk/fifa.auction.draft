@@ -318,7 +318,6 @@ tr:hover td{background:rgba(255,255,255,.03)}
 <div class="tabs">
   <button class="tab-btn active" data-page="tournament" onclick="showPage('tournament',this)">🏆 Tournament</button>
   <button class="tab-btn" data-page="home" onclick="showPage('home',this)">🏠 Auction</button>
-  <button class="tab-btn" data-page="lots" onclick="showPage('lots',this)">🎰 Lots</button>
   <button class="tab-btn" data-page="hammer" onclick="showPage('hammer',this)">🔨 Hammer</button>
   <button class="tab-btn" data-page="partner" onclick="showPage('partner',this)">🤝 Partner</button>
   <button class="tab-btn" data-page="tracker" onclick="showPage('tracker',this)">💰 Purse</button>
@@ -435,8 +434,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
 <div id="home" class="page">
   <div class="stats-row">
     <div class="stat-card"><span class="stat-val">6</span><div class="stat-label">Captains</div></div>
-    <div class="stat-card"><span class="stat-val">8</span><div class="stat-label">Lots</div></div>
-    <div class="stat-card"><span class="stat-val">48</span><div class="stat-label">Lot Players</div></div>
+    <div class="stat-card"><span class="stat-val">107</span><div class="stat-label">Total Players</div></div>
     <div class="stat-card"><span class="stat-val">₹1.5Cr</span><div class="stat-label">Per Purse</div></div>
     <div class="stat-card"><span class="stat-val">16–18</span><div class="stat-label">Squad Size</div></div>
     <div class="stat-card"><span class="stat-val">2v2</span><div class="stat-label">Format</div></div>
@@ -444,61 +442,46 @@ tr:hover td{background:rgba(255,255,255,.03)}
 
   <div class="card">
     <div class="card-title">📋 Tournament Overview</div>
-    <div class="rule-item"><div class="rule-num">1</div><div class="rule-text"><strong>Each captain receives ₹1,50,00,000 (₹1.5 Crore)</strong> as their auction purse. This single budget covers your partner, all lot bids, and all hammer purchases. Once it's gone, it's gone.</div></div>
+    <div class="rule-item"><div class="rule-num">1</div><div class="rule-text"><strong>Each captain receives ₹1,50,00,000 (₹1.5 Crore)</strong> as their auction purse. This budget covers your partner and all player purchases. Once it's gone, it's gone.</div></div>
     <div class="rule-item"><div class="rule-num">2</div><div class="rule-text"><strong>Phase 0 — Partner Auction:</strong> Before the draft, each captain bids for one partner from the non-captain participant pool. Your partner co-manages your squad every match.</div></div>
-    <div class="rule-item"><div class="rule-num">3</div><div class="rule-text"><strong>Phase 1 — Lot Bidding:</strong> 8 lots (by position) are auctioned. All 6 captains bid on every lot. Highest bidder picks first from that lot; lowest bidder picks last and pays the average of all 6 bids. Each captain gets exactly 1 player per lot.</div></div>
-    <div class="rule-item"><div class="rule-num">4</div><div class="rule-text"><strong>Phase 2 — Hammer Round:</strong> Sub-87-rated players (+ GK overflow) auctioned one by one, position by position. Highest bid wins. Open live bidding — no sealed bids.</div></div>
-    <div class="rule-item"><div class="rule-num">5</div><div class="rule-text"><strong>Final Squad:</strong> 16–18 players total (including partner). Minimum requirements: 1 GK, 4 DEF, 4 MID, 3 ATT. Fill the rest as you choose.</div></div>
-  </div>
-
-  <div class="token-box">
-    <div class="tk-title">🪙 The Consolation Token</div>
-    <p>The captain who bids <strong>lowest</strong> in any lot pays the <strong>average of all 6 bids</strong> (not their own lower bid) — but receives a <strong>Consolation Token</strong>. This token can be used exactly once during the Hammer Round to match the leading bid on any player and win them outright. Each captain can hold maximum one token at any time. Tokens cannot be traded or saved across sessions.</p>
+    <div class="rule-item"><div class="rule-num">3</div><div class="rule-text"><strong>Phase 1 — Hammer Round:</strong> All players auctioned one by one, position by position (GK → DEF → MID → ATT). Auctioneer calls each player — captains shout bids live until the gavel falls. Highest bid wins. Base price ₹5L for every player. Minimum increment ₹50,000.</div></div>
+    <div class="rule-item"><div class="rule-num">4</div><div class="rule-text"><strong>Final Squad:</strong> 16–18 players total (including partner). Minimum requirements: 1 GK, 4 DEF, 4 MID, 3 ATT. Fill the rest as you choose.</div></div>
   </div>
 
   <div class="card">
-    <div class="card-title">🏟️ Lot Structure — 8 Lots by Position</div>
+    <div class="card-title">🏟️ Hammer Auction — Player Pool</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px">
       <div style="background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.22);border-radius:10px;padding:14px">
-        <div style="color:var(--gk);font-weight:700;font-size:13px;margin-bottom:4px">🧤 GK Lot</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">1 lot · 6 top goalkeepers<br>Base bid: <strong style="color:var(--gold2)">₹12 Lakh</strong></div>
+        <div style="color:var(--gk);font-weight:700;font-size:13px;margin-bottom:4px">🧤 Goalkeepers</div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">11 Goalkeepers<br>Base: <strong style="color:var(--gold2)">₹5 Lakh each</strong></div>
       </div>
       <div style="background:rgba(239,68,68,.09);border:1px solid rgba(239,68,68,.22);border-radius:10px;padding:14px">
-        <div style="color:var(--att);font-weight:700;font-size:13px;margin-bottom:4px">⚡ Attacker Lots A &amp; B</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 attackers total<br>Base: <strong style="color:var(--gold2)">₹12L each</strong></div>
+        <div style="color:var(--att);font-weight:700;font-size:13px;margin-bottom:4px">⚡ Attackers</div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">34 Attackers<br>Base: <strong style="color:var(--gold2)">₹5 Lakh each</strong></div>
       </div>
       <div style="background:rgba(59,130,246,.09);border:1px solid rgba(59,130,246,.22);border-radius:10px;padding:14px">
-        <div style="color:var(--mid);font-weight:700;font-size:13px;margin-bottom:4px">⚙️ Midfielder Lots A &amp; B</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 midfielders total<br>Base: <strong style="color:var(--gold2)">₹12L each</strong></div>
+        <div style="color:var(--mid);font-weight:700;font-size:13px;margin-bottom:4px">⚙️ Midfielders</div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">26 Midfielders<br>Base: <strong style="color:var(--gold2)">₹5 Lakh each</strong></div>
       </div>
       <div style="background:rgba(16,185,129,.09);border:1px solid rgba(16,185,129,.22);border-radius:10px;padding:14px">
-        <div style="color:var(--def);font-weight:700;font-size:13px;margin-bottom:4px">🛡 Defender Lots A &amp; B</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">2 lots · 12 defenders total<br>Base: <strong style="color:var(--gold2)">₹12L each</strong></div>
-      </div>
-      <div style="background:rgba(139,92,246,.09);border:1px solid rgba(139,92,246,.22);border-radius:10px;padding:14px">
-        <div style="color:var(--mix);font-weight:700;font-size:13px;margin-bottom:4px">🌟 Mix Lot</div>
-        <div style="font-size:12px;color:var(--silver);line-height:1.7">1 lot · 6 versatile players<br>Base: <strong style="color:var(--gold2)">₹12 Lakh</strong></div>
+        <div style="color:var(--def);font-weight:700;font-size:13px;margin-bottom:4px">🛡 Defenders</div>
+        <div style="font-size:12px;color:var(--silver);line-height:1.7">36 Defenders<br>Base: <strong style="color:var(--gold2)">₹5 Lakh each</strong></div>
       </div>
     </div>
   </div>
 
-  <div class="hl-box"><p><strong>Simultaneous Sealed Bids:</strong> All captains write their bid on paper and reveal at the same time. Rank 1 (highest) picks first, Rank 6 (lowest) picks last and pays average. Ties broken by higher GK rating. Minimum bid = base price. Increment: ₹50,000 minimum.</p></div>
+  <div class="hl-box"><p><strong>How Hammer Bidding Works:</strong> Auctioneer announces the player and opens at ₹5L. Captains shout bids live — last standing bid wins. Minimum increment ₹50,000. Unsold players (no bids above base) go to an unsold pool available after the auction at base price.</p></div>
 </div>
 
-<!-- ═══ AUCTION HUB (mobile overview) ═══ -->
+<!-- ═══ AUCTION HUB ═══ -->
 <div id="auction-hub" class="page">
   <div class="section-title">Auction Overview</div>
   <div class="section-sub">Navigate to any section of the auction</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
-    <button class="hub-card" onclick="showPage('lots',document.querySelector('[data-page=lots]'))">
-      <div class="hub-icon">🎰</div>
-      <div class="hub-label">Lots</div>
-      <div class="hub-sub">8 lots · 48 players</div>
-    </button>
     <button class="hub-card" onclick="showPage('hammer',document.querySelector('[data-page=hammer]'))">
       <div class="hub-icon">🔨</div>
       <div class="hub-label">Hammer Round</div>
-      <div class="hub-sub">72 players · live bidding</div>
+      <div class="hub-sub">All players · live bidding</div>
     </button>
     <button class="hub-card" onclick="showPage('partner',document.querySelector('[data-page=partner]'))">
       <div class="hub-icon">🤝</div>
@@ -513,14 +496,6 @@ tr:hover td{background:rgba(255,255,255,.03)}
   </div>
 </div>
 
-<!-- ═══ LOTS ═══ -->
-<div id="lots" class="page">
-  <button class="back-btn" onclick="showPage('auction-hub',document.querySelector('[data-page=auction-hub]'))">Auction Overview</button>
-  <div class="section-title">Player Lots</div>
-  <div class="section-sub">8 lots · 48 players · All rated 87+ OVR · Organised by position</div>
-  <div id="lots-container" class="lot-grid"></div>
-</div>
-
 <!-- ═══ HAMMER ═══ -->
 <div id="hammer" class="page">
   <button class="back-btn" onclick="showPage('auction-hub',document.querySelector('[data-page=auction-hub]'))">Auction Overview</button>
@@ -530,7 +505,7 @@ tr:hover td{background:rgba(255,255,255,.03)}
     <div class="phase-icon">🔨</div>
     <div class="phase-info">
       <h3>How the Hammer Works</h3>
-      <p>Auctioneer calls each player: GK → Defenders → Midfielders → Wingers/CAM → Strikers. Captains shout bids live until the gavel falls. <strong style="color:var(--gold2)">Consolation Token</strong> can be played here — holder can match any bid and take the player immediately. Minimum bid = base price listed.</p>
+      <p>Auctioneer calls each player: GK → Defenders → Midfielders → Wingers/CAM → Strikers. Captains shout bids live until the gavel falls. Minimum bid = base price listed.</p>
     </div>
   </div>
   <div id="hammer-container"></div>
@@ -621,11 +596,6 @@ tr:hover td{background:rgba(255,255,255,.03)}
       <div class="strat-text">One 91-rated player doesn't win you a tournament. Eight solid 84s might. A deep squad handles rotations, rematches, and positional flexibility. Don't empty the purse chasing a single name.</div>
     </div>
     <div class="strat-card">
-      <div class="strat-icon">🪙</div>
-      <div class="strat-title">The Token Is a Late-Game Weapon</div>
-      <div class="strat-text">If you hold the Consolation Token, don't show your hand. The perfect moment is a hammer player who fills your squad's weakest position — when every other captain wants them just as much.</div>
-    </div>
-    <div class="strat-card">
       <div class="strat-icon">👥</div>
       <div class="strat-title">Partner Fit Over Partner Fame</div>
       <div class="strat-text">A well-known gamer as a partner looks impressive on paper. But someone who stays disciplined, tracks back, and communicates under pressure wins you matches. Assess their game IQ, not just their name.</div>
@@ -701,153 +671,126 @@ tr:hover td{background:rgba(255,255,255,.03)}
 // ─── DATA ───────────────────────────────────────────────────────────────────
 // ── FC 26 Official Ratings (released Sep 26 2025) ──
 // Sources: EA Sports / Goal.com / gamecurrency.net
-const LOTS=[
-  {id:'gk',type:'gk',name:'\u{1F9E4} Goalkeeper Lot',baseL:10,players:[
-    {n:'Thibaut Courtois',      c:'Real Madrid',     p:'GK',r:90},
-    {n:'Gianluigi Donnarumma',  c:'PSG',             p:'GK',r:89},
-    {n:'Alisson Becker',        c:'Liverpool',       p:'GK',r:88},
-    {n:'Jan Oblak',             c:'Atletico Madrid', p:'GK',r:88},
-    {n:'David Raya',            c:'Arsenal',         p:'GK',r:87},
-    {n:'Mike Maignan',          c:'AC Milan',        p:'GK',r:87}
-  ]},
-  {id:'attA',type:'att',name:'⚡ Attacker Lot A',baseL:10,players:[
-    {n:'Kylian Mbappé',         c:'Real Madrid',     p:'ST', r:91},
-    {n:'Harry Kane',            c:'Bayern Munich',   p:'ST', r:90},
-    {n:'Vinicius Jr.',          c:'Real Madrid',     p:'LW', r:89},
-    {n:'Lamine Yamal',          c:'Barcelona',       p:'RW', r:89},
-    {n:'Lautaro Martínez',      c:'Inter Milan',     p:'ST', r:88},
-    {n:'Bukayo Saka',           c:'Arsenal',         p:'RW', r:87}
-  ]},
-  {id:'attB',type:'att',name:'⚡ Attacker Lot B',baseL:10,players:[
-    {n:'Erling Haaland',        c:'Man City',        p:'ST', r:91},
-    {n:'Ousmane Dembélé',       c:'PSG',             p:'ST', r:90},
-    {n:'Mohamed Salah',         c:'Liverpool',       p:'RW', r:89},
-    {n:'Raphinha',              c:'Barcelona',       p:'LW', r:89},
-    {n:'Michael Olise',         c:'Bayern Munich',   p:'RW', r:88},
-    {n:'Alexander Isak',        c:'Liverpool',       p:'ST', r:87}
-  ]},
-  {id:'midA',type:'mid',name:'⚙️ Midfielder Lot A',baseL:10,players:[
-    {n:'Vitinha',               c:'PSG',             p:'CM', r:90},
-    {n:'Jude Bellingham',       c:'Real Madrid',     p:'CAM',r:89},
-    {n:'Joshua Kimmich',        c:'Bayern Munich',   p:'CDM',r:89},
-    {n:'Moisés Caicedo',        c:'Chelsea',         p:'CDM',r:88},
-    {n:'Bruno Fernandes',       c:'Man United',      p:'CAM',r:88},
-    {n:'Nicolò Barella',        c:'Inter Milan',     p:'CM', r:88}
-  ]},
-  {id:'midB',type:'mid',name:'⚙️ Midfielder Lot B',baseL:10,players:[
-    {n:'Pedri',                 c:'Barcelona',       p:'CM', r:90},
-    {n:'Rodri',                 c:'Man City',        p:'CDM',r:89},
-    {n:'Federico Valverde',     c:'Real Madrid',     p:'CM', r:89},
-    {n:'Declan Rice',           c:'Arsenal',         p:'CDM',r:88},
-    {n:'Jamal Musiala',         c:'Bayern Munich',   p:'CAM',r:88},
-    {n:'Florian Wirtz',         c:'Liverpool',       p:'CAM',r:87}
-  ]},
-  {id:'defA',type:'def',name:'🛡 Defender Lot A',baseL:10,players:[
-    {n:'Gabriel Magalhães',     c:'Arsenal',         p:'CB', r:89},
-    {n:'Virgil van Dijk',       c:'Liverpool',       p:'CB', r:88},
-    {n:'Nuno Mendes',           c:'PSG',             p:'LB', r:88},
-    {n:'Rúben Dias',            c:'Man City',        p:'CB', r:87},
-    {n:'Marquinhos',            c:'PSG',             p:'CB', r:87},
-    {n:'Jules Koundé',          c:'Barcelona',       p:'RB', r:86}
-  ]},
-  {id:'defB',type:'def',name:'🛡 Defender Lot B',baseL:10,players:[
-    {n:'Achraf Hakimi',         c:'PSG',             p:'RB', r:89},
-    {n:'William Saliba',        c:'Arsenal',         p:'CB', r:88},
-    {n:'Willian Pacho',         c:'PSG',             p:'CB', r:87},
-    {n:'Alessandro Bastoni',    c:'Inter Milan',     p:'CB', r:87},
-    {n:'Jonathan Tah',          c:'Bayern Munich',   p:'CB', r:87},
-    {n:'Nico Schlotterbeck',    c:'Dortmund',        p:'CB', r:86}
-  ]},
-  {id:'mix',type:'mix',name:'🌟 Mix Lot — Wildcards',baseL:10,players:[
-    {n:'Khvicha Kvaratskhelia',  c:'PSG',            p:'LW', r:87},
-    {n:'Frenkie de Jong',        c:'Barcelona',      p:'CM', r:87},
-    {n:'João Neves',             c:'PSG',            p:'CM', r:87},
-    {n:'Martin Ødegaard',        c:'Arsenal',        p:'CM', r:86},
-    {n:'Dayot Upamecano',        c:'Bayern Munich',  p:'CB', r:86},
-    {n:'Ibrahima Konaté',        c:'Liverpool',      p:'CB', r:85}
-  ]}
-];
+const LOTS=[];
 
 // ── Players NOT in lots → hammer pool ─────────────────────────────────────
 // Hammer: 87-rated overflow + 86 and below
 const HAMMER={
   gk:{label:'🧤 Goalkeepers',col:'var(--gk)',players:[
-    {n:'Yann Sommer',            c:'Inter Milan',      p:'GK',r:86,b:3},
-    {n:'Joan Garcia',            c:'Espanyol',         p:'GK',r:86,b:3},
-    {n:'Gregor Kobel',           c:'Dortmund',         p:'GK',r:86,b:3},
-    {n:'Emiliano Martínez',      c:'Aston Villa',      p:'GK',r:85,b:3},
-    {n:'Marco Carnesecchi',      c:'Atalanta',         p:'GK',r:85,b:3}
+    {n:'Thibaut Courtois',c:'Real Madrid',p:'GK',r:90,b:5},
+    {n:'Gianluigi Donnarumma',c:'PSG',p:'GK',r:89,b:5},
+    {n:'Alisson Becker',c:'Liverpool',p:'GK',r:88,b:5},
+    {n:'Jan Oblak',c:'Atletico Madrid',p:'GK',r:88,b:5},
+    {n:'David Raya',c:'Arsenal',p:'GK',r:87,b:5},
+    {n:'Mike Maignan',c:'AC Milan',p:'GK',r:87,b:5},
+    {n:'Yann Sommer',c:'Inter Milan',p:'GK',r:86,b:5},
+    {n:'Joan Garcia',c:'Espanyol',p:'GK',r:86,b:5},
+    {n:'Gregor Kobel',c:'Dortmund',p:'GK',r:86,b:5},
+    {n:'Emiliano Martínez',c:'Aston Villa',p:'GK',r:85,b:5},
+    {n:'Marco Carnesecchi',c:'Atalanta',p:'GK',r:85,b:5}
   ]},
   def:{label:'🛡 Defenders',col:'var(--def)',players:[
-    {n:'Federico Dimarco',       c:'Inter Milan',      p:'LB',r:86,b:3},
-    {n:'Trent Alexander-Arnold', c:'Real Madrid',      p:'RB',r:85,b:3},
-    {n:'Bremer',                 c:'Juventus',         p:'CB',r:85,b:3},
-    {n:'Marc Cucurella',         c:'Chelsea',          p:'LB',r:85,b:3},
-    {n:'Joško Gvardiol',         c:'Man City',         p:'LB',r:85,b:3},
-    {n:'Diego Llorente',         c:'Atletico Madrid',  p:'CB',r:85,b:3},
-    {n:'Alejandro Grimaldo',     c:'Leverkusen',       p:'LB',r:85,b:3},
-    {n:'Antonio Rüdiger',        c:'Real Madrid',      p:'CB',r:84,b:3},
-    {n:'Dani Carvajal',          c:'Real Madrid',      p:'RB',r:84,b:3},
-    {n:'Denzel Dumfries',        c:'Inter Milan',      p:'RB',r:84,b:3},
-    {n:'Reece James',            c:'Chelsea',          p:'RB',r:84,b:3},
-    {n:'Eder Militão',           c:'Real Madrid',      p:'CB',r:84,b:3},
-    {n:'Marc Guéhi',             c:'Crystal Palace',   p:'CB',r:84,b:3},
-    {n:'Jurrien Timber',         c:'Arsenal',          p:'RB',r:84,b:3},
-    {n:'João Cancelo',           c:'Barcelona',        p:'RB',r:84,b:3},
-    {n:'Íñigo Martínez',         c:'Athletic Bilbao',  p:'CB',r:84,b:3},
-    {n:'Alphonso Davies',        c:'Bayern Munich',    p:'LB',r:84,b:3},
-    {n:'Theo Hernández',         c:'Al Hilal',         p:'LB',r:84,b:3},
-    {n:'Pau Cubarsi',            c:'Barcelona',        p:'CB',r:83,b:3},
-    {n:'Jeremie Frimpong',       c:'Leverkusen',       p:'RB',r:83,b:3},
-    {n:'Alejandro Balde',        c:'Barcelona',        p:'LB',r:83,b:3},
-    {n:'Eric García',            c:'Girona',           p:'CB',r:83,b:3}
+    {n:'Gabriel Magalhães',c:'Arsenal',p:'CB',r:89,b:5},
+    {n:'Achraf Hakimi',c:'PSG',p:'RB',r:89,b:5},
+    {n:'Virgil van Dijk',c:'Liverpool',p:'CB',r:88,b:5},
+    {n:'Nuno Mendes',c:'PSG',p:'LB',r:88,b:5},
+    {n:'William Saliba',c:'Arsenal',p:'CB',r:88,b:5},
+    {n:'Rúben Dias',c:'Man City',p:'CB',r:87,b:5},
+    {n:'Marquinhos',c:'PSG',p:'CB',r:87,b:5},
+    {n:'Willian Pacho',c:'PSG',p:'CB',r:87,b:5},
+    {n:'Alessandro Bastoni',c:'Inter Milan',p:'CB',r:87,b:5},
+    {n:'Jonathan Tah',c:'Bayern Munich',p:'CB',r:87,b:5},
+    {n:'Federico Dimarco',c:'Inter Milan',p:'LB',r:86,b:5},
+    {n:'Jules Koundé',c:'Barcelona',p:'RB',r:86,b:5},
+    {n:'Nico Schlotterbeck',c:'Dortmund',p:'CB',r:86,b:5},
+    {n:'Dayot Upamecano',c:'Bayern Munich',p:'CB',r:86,b:5},
+    {n:'Trent Alexander-Arnold',c:'Real Madrid',p:'RB',r:85,b:5},
+    {n:'Bremer',c:'Juventus',p:'CB',r:85,b:5},
+    {n:'Marc Cucurella',c:'Chelsea',p:'LB',r:85,b:5},
+    {n:'Joško Gvardiol',c:'Man City',p:'LB',r:85,b:5},
+    {n:'Diego Llorente',c:'Atletico Madrid',p:'CB',r:85,b:5},
+    {n:'Alejandro Grimaldo',c:'Leverkusen',p:'LB',r:85,b:5},
+    {n:'Ibrahima Konaté',c:'Liverpool',p:'CB',r:85,b:5},
+    {n:'Antonio Rüdiger',c:'Real Madrid',p:'CB',r:84,b:5},
+    {n:'Dani Carvajal',c:'Real Madrid',p:'RB',r:84,b:5},
+    {n:'Denzel Dumfries',c:'Inter Milan',p:'RB',r:84,b:5},
+    {n:'Reece James',c:'Chelsea',p:'RB',r:84,b:5},
+    {n:'Eder Militão',c:'Real Madrid',p:'CB',r:84,b:5},
+    {n:'Marc Guéhi',c:'Crystal Palace',p:'CB',r:84,b:5},
+    {n:'Jurrien Timber',c:'Arsenal',p:'RB',r:84,b:5},
+    {n:'João Cancelo',c:'Barcelona',p:'RB',r:84,b:5},
+    {n:'Íñigo Martínez',c:'Athletic Bilbao',p:'CB',r:84,b:5},
+    {n:'Alphonso Davies',c:'Bayern Munich',p:'LB',r:84,b:5},
+    {n:'Theo Hernández',c:'Al Hilal',p:'LB',r:84,b:5},
+    {n:'Pau Cubarsi',c:'Barcelona',p:'CB',r:83,b:5},
+    {n:'Jeremie Frimpong',c:'Leverkusen',p:'RB',r:83,b:5},
+    {n:'Alejandro Balde',c:'Barcelona',p:'LB',r:83,b:5},
+    {n:'Eric García',c:'Girona',p:'CB',r:83,b:5}
   ]},
   mid:{label:'⚙️ Midfielders',col:'var(--mid)',players:[
-    {n:'Kevin De Bruyne',        c:'Napoli',           p:'CM', r:87,b:3},
-    {n:'Cole Palmer',            c:'Chelsea',          p:'CAM',r:86,b:3},
-    {n:'Alexis Mac Allister',    c:'Liverpool',        p:'CM', r:86,b:3},
-    {n:'Dominik Szoboszlai',     c:'Liverpool',        p:'CAM',r:86,b:3},
-    {n:'Scott McTominay',        c:'Napoli',           p:'CM', r:86,b:3},
-    {n:'Ryan Gravenberch',       c:'Liverpool',        p:'CDM',r:86,b:3},
-    {n:'Sandro Tonali',          c:'Newcastle',        p:'CDM',r:85,b:3},
-    {n:'Tijjani Reijnders',      c:'Man City',         p:'CM', r:85,b:3},
-    {n:'Martin Zubimendi',       c:'Arsenal',          p:'CDM',r:85,b:3},
-    {n:'Enzo Fernández',         c:'Chelsea',          p:'CM', r:85,b:3},
-    {n:'Paulo Dybala',           c:'Roma',             p:'CAM',r:85,b:3},
-    {n:'Granit Xhaka',           c:'Leverkusen',       p:'CDM',r:85,b:3},
-    {n:'Fabián Ruiz',            c:'PSG',              p:'CM', r:85,b:3},
-    {n:'Phil Foden',             c:'Man City',         p:'CAM',r:85,b:3},
-    {n:'Sergej Milinkovic-Savic',c:'Al Hilal',         p:'CM', r:85,b:3},
-    {n:'Youri Tielemans',        c:'Aston Villa',      p:'CM', r:85,b:3},
-    {n:'Dani Olmo',              c:'Barcelona',        p:'CAM',r:84,b:3},
-    {n:"N'Golo Kanté",           c:'Al Ittihad',       p:'CDM',r:84,b:3},
-    {n:'Eberechi Eze',           c:'Arsenal',          p:'CAM',r:84,b:3},
-    {n:'Luka Modrić',            c:'Real Madrid',      p:'CM', r:84,b:3},
-    {n:'Isco',                   c:'Real Betis',       p:'CAM',r:84,b:3}
+    {n:'Vitinha',c:'PSG',p:'CM',r:90,b:5},
+    {n:'Pedri',c:'Barcelona',p:'CM',r:90,b:5},
+    {n:'Jude Bellingham',c:'Real Madrid',p:'CAM',r:89,b:5},
+    {n:'Joshua Kimmich',c:'Bayern Munich',p:'CDM',r:89,b:5},
+    {n:'Rodri',c:'Man City',p:'CDM',r:89,b:5},
+    {n:'Federico Valverde',c:'Real Madrid',p:'CM',r:89,b:5},
+    {n:'Moisés Caicedo',c:'Chelsea',p:'CDM',r:88,b:5},
+    {n:'Bruno Fernandes',c:'Man United',p:'CAM',r:88,b:5},
+    {n:'Nicolò Barella',c:'Inter Milan',p:'CM',r:88,b:5},
+    {n:'Declan Rice',c:'Arsenal',p:'CDM',r:88,b:5},
+    {n:'Jamal Musiala',c:'Bayern Munich',p:'CAM',r:88,b:5},
+    {n:'Florian Wirtz',c:'Liverpool',p:'CAM',r:87,b:5},
+    {n:'Frenkie de Jong',c:'Barcelona',p:'CM',r:87,b:5},
+    {n:'João Neves',c:'PSG',p:'CM',r:87,b:5},
+    {n:'Cole Palmer',c:'Chelsea',p:'CAM',r:86,b:5},
+    {n:'Dominik Szoboszlai',c:'Liverpool',p:'CAM',r:86,b:5},
+    {n:'Ryan Gravenberch',c:'Liverpool',p:'CDM',r:86,b:5},
+    {n:'Martin Ødegaard',c:'Arsenal',p:'CM',r:86,b:5},
+    {n:'Sandro Tonali',c:'Newcastle',p:'CDM',r:85,b:5},
+    {n:'Martin Zubimendi',c:'Arsenal',p:'CDM',r:85,b:5},
+    {n:'Paulo Dybala',c:'Roma',p:'CAM',r:85,b:5},
+    {n:'Granit Xhaka',c:'Leverkusen',p:'CDM',r:85,b:5},
+    {n:'Phil Foden',c:'Man City',p:'CAM',r:85,b:5},
+    {n:'Dani Olmo',c:'Barcelona',p:'CAM',r:84,b:5},
+    {n:'Eberechi Eze',c:'Arsenal',p:'CAM',r:84,b:5},
+    {n:'Isco',c:'Real Betis',p:'CAM',r:84,b:5}
   ]},
   att:{label:'⚡ Attackers',col:'var(--att)',players:[
-    {n:'Luis Díaz',              c:'Bayern Munich',    p:'LW', r:87,b:3},
-    {n:'Lionel Messi',           c:'Inter Miami',      p:'RW', r:86,b:3},
-    {n:'Julián Álvarez',         c:'Atletico Madrid',  p:'ST', r:86,b:3},
-    {n:'Viktor Gyökeres',        c:'Arsenal',          p:'ST', r:86,b:3},
-    {n:'Robert Lewandowski',     c:'Barcelona',        p:'ST', r:86,b:3},
-    {n:'Désiré Doué',            c:'PSG',              p:'RW', r:85,b:3},
-    {n:'Nico Williams',          c:'Athletic Bilbao',  p:'LW', r:85,b:3},
-    {n:'Hugo Ekitike',           c:'Frankfurt',        p:'ST', r:85,b:3},
-    {n:'Serhou Guirassy',        c:'Dortmund',         p:'ST', r:85,b:3},
-    {n:'Cristiano Ronaldo',      c:'Al Nassr',         p:'ST', r:85,b:3},
-    {n:'Christian Pulisic',      c:'AC Milan',         p:'RW', r:85,b:3},
-    {n:'Marcus Thuram',          c:'Inter Milan',      p:'ST', r:85,b:3},
-    {n:'Patrick Schick',         c:'Leverkusen',       p:'ST', r:85,b:3},
-    {n:'Son Heung-min',          c:'LAFC',             p:'LW', r:84,b:3},
-    {n:'Antoine Griezmann',      c:'Atletico Madrid',  p:'ST', r:84,b:3},
-    {n:'Rodrygo',                c:'Real Madrid',      p:'RW', r:84,b:3},
-    {n:'Rafael Leão',            c:'AC Milan',         p:'LW', r:84,b:3},
-    {n:'Ferran Torres',          c:'Barcelona',        p:'RW', r:84,b:3},
-    {n:'Ollie Watkins',          c:'Aston Villa',      p:'ST', r:84,b:3},
-    {n:'Ademola Lookman',        c:'Atalanta',         p:'LW', r:84,b:3},
-    {n:'Gabriel Martinelli',     c:'Arsenal',          p:'LW', r:84,b:3}
-  ]}
+    {n:'Kylian Mbappé',c:'Real Madrid',p:'ST',r:91,b:5},
+    {n:'Erling Haaland',c:'Man City',p:'ST',r:91,b:5},
+    {n:'Harry Kane',c:'Bayern Munich',p:'ST',r:90,b:5},
+    {n:'Ousmane Dembélé',c:'PSG',p:'ST',r:90,b:5},
+    {n:'Vinicius Jr.',c:'Real Madrid',p:'LW',r:89,b:5},
+    {n:'Lamine Yamal',c:'Barcelona',p:'RW',r:89,b:5},
+    {n:'Mohamed Salah',c:'Liverpool',p:'RW',r:89,b:5},
+    {n:'Raphinha',c:'Barcelona',p:'LW',r:89,b:5},
+    {n:'Lautaro Martínez',c:'Inter Milan',p:'ST',r:88,b:5},
+    {n:'Michael Olise',c:'Bayern Munich',p:'RW',r:88,b:5},
+    {n:'Bukayo Saka',c:'Arsenal',p:'RW',r:87,b:5},
+    {n:'Alexander Isak',c:'Liverpool',p:'ST',r:87,b:5},
+    {n:'Khvicha Kvaratskhelia',c:'PSG',p:'LW',r:87,b:5},
+    {n:'Luis Díaz',c:'Bayern Munich',p:'LW',r:87,b:5},
+    {n:'Lionel Messi',c:'Inter Miami',p:'RW',r:86,b:5},
+    {n:'Julián Álvarez',c:'Atletico Madrid',p:'ST',r:86,b:5},
+    {n:'Viktor Gyökéres',c:'Arsenal',p:'ST',r:86,b:5},
+    {n:'Robert Lewandowski',c:'Barcelona',p:'ST',r:86,b:5},
+    {n:'Désiré Doué',c:'PSG',p:'RW',r:85,b:5},
+    {n:'Nico Williams',c:'Athletic Bilbao',p:'LW',r:85,b:5},
+    {n:'Hugo Ekitike',c:'Frankfurt',p:'ST',r:85,b:5},
+    {n:'Serhou Guirassy',c:'Dortmund',p:'ST',r:85,b:5},
+    {n:'Cristiano Ronaldo',c:'Al Nassr',p:'ST',r:85,b:5},
+    {n:'Christian Pulisic',c:'AC Milan',p:'RW',r:85,b:5},
+    {n:'Marcus Thuram',c:'Inter Milan',p:'ST',r:85,b:5},
+    {n:'Patrick Schick',c:'Leverkusen',p:'ST',r:85,b:5},
+    {n:'Son Heung-min',c:'LAFC',p:'LW',r:84,b:5},
+    {n:'Antoine Griezmann',c:'Atletico Madrid',p:'ST',r:84,b:5},
+    {n:'Rodrygo',c:'Real Madrid',p:'RW',r:84,b:5},
+    {n:'Rafael Leão',c:'AC Milan',p:'LW',r:84,b:5},
+    {n:'Ferran Torres',c:'Barcelona',p:'RW',r:84,b:5},
+    {n:'Ollie Watkins',c:'Aston Villa',p:'ST',r:84,b:5},
+    {n:'Ademola Lookman',c:'Atalanta',p:'LW',r:84,b:5},
+    {n:'Gabriel Martinelli',c:'Arsenal',p:'LW',r:84,b:5}
+  ]},
 };
 
 // ─── POS CLASSES ────────────────────────────────────────────────────────────
@@ -857,6 +800,7 @@ const POS={GK:'pos-gk',ST:'pos-att',LW:'pos-att',RW:'pos-att',CF:'pos-att',
 
 // ─── RENDER LOTS ────────────────────────────────────────────────────────────
 function renderLots(){
+  const el=document.getElementById('lots-container');if(!el)return;
   document.getElementById('lots-container').innerHTML=LOTS.map(lot=>`
     <div class="lot-card lot-${lot.type}">
       <div class="lot-header">
@@ -882,9 +826,10 @@ function renderHammer(){
     <div class="hammer-section">
       <h3 style="color:${sec.col}">${sec.label}</h3>
       <div class="table-wrap"><table>
-        <thead><tr><th>Player</th><th>Club</th><th>Pos</th><th>OVR</th><th>Base Price</th></tr></thead>
-        <tbody>${sec.players.map(pl=>`
+        <thead><tr><th style="width:36px;text-align:center;color:var(--silver)">#</th><th>Player</th><th>Club</th><th>Pos</th><th>OVR</th><th>Base Price</th></tr></thead>
+        <tbody>${sec.players.map((pl,idx)=>`
           <tr>
+            <td style="text-align:center;color:var(--silver);font-size:12px;opacity:.7">${idx+1}</td>
             <td style="font-weight:600">${pl.n}</td>
             <td style="color:var(--silver)">${pl.c}</td>
             <td><span class="pos-badge ${POS[pl.p]||'pos-mix'}">${pl.p}</span></td>
@@ -938,7 +883,7 @@ function calcPurse(i){
 // ─── TRIAL SQUAD BUILDER ────────────────────────────────────────────────────
 let SEL={};
 function renderPool(){
-  const c=document.getElementById('pool-container');
+  const c=document.getElementById('pool-container');if(!c)return;
   let html='<div class="pool-section"><div class="pool-title" style="color:var(--gold2);font-size:13px;font-weight:700;border-color:rgba(200,161,50,.3);margin-bottom:10px">LOTS — 87+ Rated</div>';
   LOTS.forEach(lot=>{
     html+=`<div class="pool-title">${lot.name} · Base ₹${lot.baseL}L per pick</div>`;
@@ -979,6 +924,7 @@ function tp(uid,name,club,pos,priceL,type){
 const TORD=['gk','def','mid','att','mix'];
 const TLBL={gk:'Goalkeepers',def:'Defenders',mid:'Midfielders',att:'Attackers',mix:'Versatile'};
 function refreshSquad(){
+  if(!document.getElementById('squad-count-badge'))return;
   const players=Object.values(SEL);
   const count=players.length;
   const spent=players.reduce((s,p)=>s+parseFloat(p.priceL),0);
@@ -1024,19 +970,18 @@ function showPage(id,btn){
   document.getElementById(id).classList.add('active');
   // sync both desktop + mobile navs by data-page attribute
   document.querySelectorAll(`[data-page="${id}"]`).forEach(b=>b.classList.add('active'));
-  // when navigating to a sub-page from the hub, keep mob "Players" tab highlighted
-  const mobHubPages=['lots','hammer','partner','tracker'];
-  if(mobHubPages.includes(id)){
+  if(['hammer','partner','tracker'].includes(id)){
     document.querySelectorAll('[data-page="auction-hub"]').forEach(b=>b.classList.add('active'));
   }
+  // when navigating to a sub-page from the hub, keep mob "Players" tab highlighted
+  const mobHubPages=['hammer','partner','tracker'];
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-renderLots();
+  // lots removed
 renderHammer();
 renderPurseTracker();
-renderPool();
+  // pool removed
 </script>
 </body>
 </html>
- 
